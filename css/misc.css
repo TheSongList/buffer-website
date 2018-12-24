@@ -1,0 +1,70 @@
+.navbar {
+    background-color: #222222;
+    border-bottom: 2px solid #00CCFF;
+    min-height: 100px;
+}
+
+#return-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    display: block;
+    text-decoration: none;
+    display: none;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+#return-to-top i {
+    color: #fff;
+    margin: 0;
+    position: relative;
+    left: 16px;
+    top: 13px;
+    font-size: 19px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+#return-to-top:hover i {
+    top: 5px;
+}
+
+footer {
+    background-color: #1B1B1B;
+    color: #777777;
+}
+
+footer a {
+    text-decoration: underline;
+    color: #777777;
+}
+
+footer a:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.twitter:hover i {
+    background-color: #1DA1F2 !important;
+}
+
+.patreon:hover i {
+    background-color: #F96854 !important;
+}
+
+.facebook:hover i {
+    background-color: #3B5998 !important;
+}
+
+.paypal:hover i {
+    background-color: #009CDE !important;
+}

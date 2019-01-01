@@ -4,6 +4,16 @@
     min-height: 100px;
 }
 
+.brand-name {
+    margin-left: .5em;
+    color: #00ccff;
+    font-size: 1.5em;
+    font-weight: 300;
+    -webkit-text-decoration: none;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
 #return-to-top {
     position: fixed;
     bottom: 30px;

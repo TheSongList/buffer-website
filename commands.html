@@ -1,0 +1,84 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="./css/commands.css" type="text/css">
+    <link rel="stylesheet" href="./css/misc.css" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body ng-app="">
+    <div ng-include="'items/nav.html'"></div>
+    <div class="content-body">
+        <div class="commands">
+            <div class="sidebar">
+                <div class="sidebar_content">
+                    <input class="filterable-list_search" id="input" type="text" onkeyup="search()" placeholder="Search">
+                    <div class="filterable-list_content">
+                        <div class="filterable-list_title">Command Categories</div>
+                        <div class="filterable-list_item filterable-list_item--all">all</div>
+                        <div class="filterable-list_item filterable-list_item--fun">fun</div>
+                        <div class="filterable-list_item filterable-list_item--general">general</div>
+                        <div class="filterable-list_item filterable-list_item--guild">guild</div>
+                        <div class="filterable-list_item filterable-list_item--images">images</div>
+                        <div class="filterable-list_item filterable-list_item--music">music</div>
+                        <div class="filterable-list_item filterable-list_item--util">util</div>
+                    </div>
+                </div>
+                <div class="sidebar_main">
+                    <div class="filterable-list-primary filterable-list-primary--undefined" id="list">
+                        <div class="filterable-list-item">robloxian<span class="filterable-list-item_short">
+                                - Sends a sexy robloxian</span></div>
+                        <div class="filterable-list-item">info<span class="filterable-list-item_short">
+                                - Displays some info about the bot</span></div>
+                        <div class="filterable-list-item">avatar<span class="filterable-list-item_short">
+                                - Get a user's avatar</span></div>
+                        <div class="filterable-list-item">help<span class="filterable-list-item_short">
+                                - Displays the help embed</span></div>
+                        <div class="filterable-list-item">icon<span class="filterable-list-item_short">
+                                - Get a server's icon</span></div>
+                        <div class="filterable-list-item">purge<span class="filterable-list-item_short">
+                                - Bulk delete messages</span></div>
+                        <div class="filterable-list-item">cat<span class="filterable-list-item_short">
+                                - Sends a random cat photo</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-include="'items/footer.html'"></div>
+    <a href="javascript:" id="return-to-top">
+        <i class="fa fa-arrow-circle-up" style="font-size:60px;color:#00CCFF"></i>
+    </a>
+    <script type="text/javascript"> $(window).scroll(function () { if ($(this).scrollTop() >= 50) { $('#return-to-top').fadeIn(200); } else { $('#return-to-top').fadeOut(200); } }); $('#return-to-top').click(function () { $('body,html').animate({ scrollTop: 0 }, 500); });
+        function search() {
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById("input");
+            filter = input.value.toUpperCase();
+            list = document.getElementById("list");
+            item = list.getElementsByClassName("filterable-list-item");
+            for (i = 0; i < item.length; i++) {
+                txtValue = item[i].textContent || item[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    item[i].style.display = "";
+                } else {
+                    item[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

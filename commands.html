@@ -16,10 +16,11 @@
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <meta charset="utf-8">
+    <meta name="theme-color" content="#00CCFF">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 
-<body ng-app="">
+<body ng-app="myApp">
     <div ng-include="'items/nav.html'"></div>
     <div class="content-body">
         <div class="commands">
@@ -28,31 +29,22 @@
                     <input class="filterable-list_search" id="input" type="text" onkeyup="search()" placeholder="Search">
                     <div class="filterable-list_content">
                         <div class="filterable-list_title">Command Categories</div>
-                        <div class="filterable-list_item filterable-list_item--all">all</div>
-                        <div class="filterable-list_item filterable-list_item--fun">fun</div>
-                        <div class="filterable-list_item filterable-list_item--general">general</div>
-                        <div class="filterable-list_item filterable-list_item--guild">guild</div>
-                        <div class="filterable-list_item filterable-list_item--images">images</div>
-                        <div class="filterable-list_item filterable-list_item--music">music</div>
-                        <div class="filterable-list_item filterable-list_item--util">util</div>
+                        <div class="filterable-list_item" id="all">all</div>
+                        <div class="filterable-list_item" id="fun">fun</div>
+                        <div class="filterable-list_item" id="games">general</div>
+                        <div class="filterable-list_item" id="image">image</div>
+                        <div class="filterable-list_item" id="info">info</div>
+                        <div class="filterable-list_item" id="moderation">moderation</div>
+                        <div class="filterable-list_item" id="music">music</div>
+                        <div class="filterable-list_item" id="search">search</div>
+                        <div class="filterable-list_item" id="settings">settings</div>
+                        <div class="filterable-list_item" id="util">util</div>
                     </div>
                 </div>
-                <div class="sidebar_main">
+                <div class="sidebar_main" ng-controller="myCtrl">
                     <div class="filterable-list-primary filterable-list-primary--undefined" id="list">
-                        <div class="filterable-list-item">robloxian<span class="filterable-list-item_short">
-                                - Sends a sexy robloxian</span></div>
-                        <div class="filterable-list-item">info<span class="filterable-list-item_short">
-                                - Displays some info about the bot</span></div>
-                        <div class="filterable-list-item">avatar<span class="filterable-list-item_short">
-                                - Get a user's avatar</span></div>
-                        <div class="filterable-list-item">help<span class="filterable-list-item_short">
-                                - Displays the help embed</span></div>
-                        <div class="filterable-list-item">icon<span class="filterable-list-item_short">
-                                - Get a server's icon</span></div>
-                        <div class="filterable-list-item">purge<span class="filterable-list-item_short">
-                                - Bulk delete messages</span></div>
-                        <div class="filterable-list-item">cat<span class="filterable-list-item_short">
-                                - Sends a random cat photo</span></div>
+                        <div ng-repeat="i in commands" class="filterable-list-item {{i.type}}">{{i.command}}<span class="filterable-list-item_short">
+                                - {{i.description}}</span></div>
                     </div>
                 </div>
             </div>
@@ -63,21 +55,59 @@
         <i class="fa fa-arrow-circle-up" style="font-size:60px;color:#00CCFF"></i>
     </a>
     <script type="text/javascript"> $(window).scroll(function () { if ($(this).scrollTop() >= 50) { $('#return-to-top').fadeIn(200); } else { $('#return-to-top').fadeOut(200); } }); $('#return-to-top').click(function () { $('body,html').animate({ scrollTop: 0 }, 500); });
-        function search() {
-            var input, filter, ul, li, a, i, txtValue;
-            input = document.getElementById("input");
-            filter = input.value.toUpperCase();
-            list = document.getElementById("list");
-            item = list.getElementsByClassName("filterable-list-item");
-            for (i = 0; i < item.length; i++) {
-                txtValue = item[i].textContent || item[i].innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    item[i].style.display = "";
-                } else {
-                    item[i].style.display = "none";
+        //https://modern-router.glitch.me/api/commands
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope, $http) {
+            $http.get("https://modern-router.glitch.me/api/commands")
+                .then(function (response) {
+                    $scope.commands = response.data;
+                });
+        });
+
+
+            function search() {
+                var input, filter, list, item, txtValue;
+                input = document.getElementById("input");
+                filter = input.value.toUpperCase();
+                list = document.getElementById("list");
+                item = list.getElementsByClassName("filterable-list-item");
+                for (i = 0; i < item.length; i++) {
+                    txtValue = item[i].childNodes[0].nodeValue;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        item[i].style.display = "";
+                    } else {
+                        item[i].style.display = "none";
+                    }
                 }
             }
-        }
+
+            var classname = document.getElementsByClassName("filterable-list_item");
+
+            function filter(tagID) {
+                return function () {
+                    var filter, list, item;
+                    filter = tagID;
+                    list = document.getElementById("list");
+                    item = list.getElementsByClassName("filterable-list-item");
+                    if (filter == "all") {
+                        for (i = 0; i < item.length; i++) {
+                            item[i].style.display = "";
+                        }
+                    } else {
+                        for (i = 0; i < item.length; i++) {
+                            if (item[i].classList.contains(filter)) {
+                                item[i].style.display = "";
+                            } else {
+                                item[i].style.display = "none";
+                            }
+                        }
+                    }
+                }
+            };
+
+            for (i = 0; i < classname.length; i++) {
+                classname[i].addEventListener('click', filter(classname[i].id), false);
+            }
     </script>
 </body>
 
